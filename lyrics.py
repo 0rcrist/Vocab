@@ -1,3 +1,4 @@
+import json
 class lyrics:
 
     def __init__(self):
@@ -100,14 +101,26 @@ class lyrics:
             raise ReferenceError('Artist not found')
         return tmp
 
+    def save(self):
+        with open('save','w') as f:
+            json.dump(self.artists,f)
+
+    def open(self):
+        with open('save') as f:
+            self.artists = json.load(f)
+
 # add overloaded functions to get the unique word count total word counts and unique words
 # maybe additionally overload a remove function
 # maybe also a print function? although that seems less worth while
 
-#if __name__ == "__main__":
+if __name__ == "__main__":
 #    print('hello')
-#    test = lyrics()
-#    test.add_song("ehlaksdf", "asdf", "asdfsa", "alskfjd asdfa asfd asfd")
+    test = lyrics()
+    test.add_song("ehlaksdf", "asdf", "asdfsa", "alskfjd asdfa asfd asfd")
+    test.save()
+    test.empty()
+    test.open()
+    print(test.get_artists())
 #    print(test.artists)
 #    print(test.get_words_artist("ehlaksdf"))
 #    print(test.get_artists())
