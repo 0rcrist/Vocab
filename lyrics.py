@@ -1,8 +1,10 @@
 import json
+import re
 class lyrics:
 
     def __init__(self):
         self.artists = {}
+        self.notword = "\n\r\"\'"
 
     def add_song(self, artist, album, song, lyrics):
         if artist not in self.artists:
@@ -11,7 +13,10 @@ class lyrics:
             self.artists[artist][album] = {}
         if song not in self.artists[artist][album]:
             self.artists[artist][album][song] = {}
-            for word in lyrics.split(" "):
+            for word in re.split('\n| ',lyrics):
+                for char in self.notword:
+                    word = word.replace(char,"")
+
                 if word.lower() not in self.artists[artist][album][song]:
                     self.artists[artist][album][song][word.lower()] = 1
                 else:
@@ -101,13 +106,33 @@ class lyrics:
             raise ReferenceError('Artist not found')
         return tmp
 
-    def save(self):
-        with open('save','w') as f:
+    def save(self, file):
+        with open(file,'w') as f:
             json.dump(self.artists,f)
 
-    def open(self):
-        with open('save') as f:
+    def open(self, file):
+        with open(file) as f:
             self.artists = json.load(f)
+
+    def import_file(self,file):
+        with open(file) as f:
+            tmp = json.load(f)
+            for artist in tmp:
+                for album in tmp[artist]:
+                    for song in tmp[artist][album]:
+                        string = ""
+                        for word in tmp[artist][album][song]:
+                            print(word)
+                            if artist not in self.artists:
+                                self.artists[artist] = {}
+                            if album not in self.artists[artist]:
+                                self.artists[artist][album] = {}
+                            if song not in self.artists[artist][album]:
+                                self.artists[artist][album][song] = {}
+                            if word.lower() not in self.artists[artist][album][song]:
+                                self.artists[artist][album][song][word.lower()] = tmp[artist][album][song][word]
+
+
 
 # add overloaded functions to get the unique word count total word counts and unique words
 # maybe additionally overload a remove function
@@ -116,11 +141,16 @@ class lyrics:
 if __name__ == "__main__":
 #    print('hello')
     test = lyrics()
-    test.add_song("ehlaksdf", "asdf", "asdfsa", "alskfjd asdfa asfd asfd")
-    test.save()
+    test.add_song("eh12ksdf", "asdf", "asdfsa", "alskfjd asdfa asfd asfd")
+    test.save("testing1")
     test.empty()
-    test.open()
+    test.open("testing")
     print(test.get_artists())
+    print(test.artists)
+    test.import_file("testing1")
+    print(test.artists)
+    print(test.get_artists())
+
 #    print(test.artists)
 #    print(test.get_words_artist("ehlaksdf"))
 #    print(test.get_artists())

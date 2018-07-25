@@ -48,11 +48,16 @@ def getLyrics(artist,lyric):
         artist_name = songSoup.find_all('b')
         new_name = str(artist_name[2])
         alb_name = new_name.split('"')
-        print(alb_name[1])
-        #print(lyrics.get_text())
-        lyric.add_song(artist,alb_name[1],"test",str(lyrics))
-        return lyric
+        #print(alb_name[1])
+        print(lyrics.get_text())
+        song_name = songSoup.find_all('script')
+        song_name1 = str(song_name[0])
+        song_name2 = song_name1.split('\n')
+        song_name3 = song_name2[2].split('"')
+        #print(song_name3[1])
+        lyric.add_song(artist,alb_name[1],song_name3[1],str(lyrics.get_text()))
+        return lyric   #FOR CASEY I put the return in the loop to kill the function early to prevent blacklisting while testing
 
 test = lyrics()
 getLyrics("taylorswift",test)
-print(test.get_artists())
+print(test.artists)
