@@ -9,6 +9,7 @@ import time
 import re
 import urllib.request as ur
 import requests
+from lyrics import lyrics
 
 proxies = {'https': '93.80.26.110'}
 
@@ -23,7 +24,7 @@ def getArtistUrl(artist):
     artistUrl = azUrl + artist[0] + "/" + artist + ".html"
     return artistUrl
 
-def getLyrics(artist):
+def getLyrics(artist,lyric):
     artistUrl = getArtistUrl(artist)
     result = requests.get(artistUrl)
     soup = bs(result.content, "html.parser")
@@ -44,6 +45,14 @@ def getLyrics(artist):
         #print(songSoup.find_all_next(class_= "col-xs-12 col-lg-8 text-center"))
         base = songSoup.find(class_ = "ringtone")
         lyrics = base.find_next_sibling("div")
-        print(lyrics.get_text())
+        artist_name = songSoup.find_all('b')
+        new_name = str(artist_name[2])
+        alb_name = new_name.split('"')
+        print(alb_name[1])
+        #print(lyrics.get_text())
+        lyric.add_song(artist,alb_name[1],"test",str(lyrics))
+        return lyric
 
-#getLyrics("taylorswift")
+test = lyrics()
+getLyrics("taylorswift",test)
+print(test.get_artists())
