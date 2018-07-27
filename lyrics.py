@@ -14,12 +14,16 @@ class lyrics:
 
     def search_artist(self, artist):
         tmp = {}
-        print(artist.lower())
-        for person in self.search:
-            if re.search(artist.lower(), str(person)) != None:
-                print(self.search[person][0])
-                tmp[self.search[person][0]] = self.search[person][1]
-        return tmp
+        if artist != "":
+            print(artist.lower())
+            for person in self.search:
+                if re.search(artist.lower(), str(person)) != None:
+                    print(self.search[person][0])
+                    tmp[self.search[person][0]] = self.search[person][1]
+            return tmp
+        else:
+            return tmp
+
 
     def add_song(self, artist, album, song, lyrics):
         print(artist)
@@ -166,7 +170,12 @@ if __name__ == "__main__":
     test.import_file("testing1")
     print(test.artists)
     print(test.get_artists())
-    print(test.search_artist("zz"))
+    print("test")
+    test.search_artist("zz")
+    test.search_artist("a")
+    test.search_artist("b")
+    test.search_artist("a")
+    print(test.search_artist(""))
 
 #    print(test.artists)
 #    print(test.get_words_artist("ehlaksdf"))
