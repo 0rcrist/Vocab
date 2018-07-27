@@ -5,8 +5,24 @@ class lyrics:
     def __init__(self):
         self.artists = {}
         self.notword = "\n\r\"\'"
+        self.search = {}
+        try:
+            with open("search") as f:
+                self.search = json.load(f)
+        except FileNotFoundError:
+            pass
+
+    def search_artist(self, artist):
+        tmp = {}
+        print(artist.lower())
+        for person in self.search:
+            if re.search(artist.lower(), str(person)) != None:
+                print(self.search[person][0])
+                tmp[self.search[person][0]] = self.search[person][1]
+        return tmp
 
     def add_song(self, artist, album, song, lyrics):
+        print(artist)
         if artist not in self.artists:
             self.artists[artist] = {}
         if album not in self.artists[artist]:
@@ -150,6 +166,7 @@ if __name__ == "__main__":
     test.import_file("testing1")
     print(test.artists)
     print(test.get_artists())
+    print(test.search_artist("zz"))
 
 #    print(test.artists)
 #    print(test.get_words_artist("ehlaksdf"))
