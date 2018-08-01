@@ -8,16 +8,16 @@ class VocabGui(Qw.QWidget):
 
     def __init__(self, dic):
         super().__init__()
-        self.title = 'Vocab'
+        #self.title = 'Vocab'
         self.dic= dic
         self.getMaxMin()
         self.resize(1000, 500)
         self.initUI()
 
     def initUI(self):
-        self.setWindowTitle(self.title)
+        #self.setWindowTitle(self.title)
         p = self.palette()
-        p.setColor(self.backgroundRole(), Qc.Qt.white)
+        p.setColor(self.backgroundRole(), Qc.Qt.black)
         self.setPalette(p)
         for  key,value in self.dic.items():
             self.ob = Circles(self, key, value, self.Max)
