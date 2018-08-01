@@ -164,7 +164,7 @@ if __name__ == "__main__":
     test.add_song("eh12ksdf", "asdf", "asdfsa", "alskfjd asdfa asfd asfd")
     test.save("testing1")
     test.empty()
-    test.open("testing")
+    test.open("testing1")
     print(test.get_artists())
     print(test.artists)
     test.import_file("testing1")

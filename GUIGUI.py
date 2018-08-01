@@ -8,14 +8,12 @@ class VocabGui(Qw.QWidget):
 
     def __init__(self, dic):
         super().__init__()
-        self.title = 'Vocab'
         self.dic= dic
         self.getMaxMin()
         self.resize(1000, 500)
         self.initUI()
 
     def initUI(self):
-        self.setWindowTitle(self.title)
         p = self.palette()
         p.setColor(self.backgroundRole(), Qc.Qt.white)
         self.setPalette(p)
@@ -41,7 +39,7 @@ class Circles(Qw.QWidget):
         self.setGeometry((self.value/max)*1000, rd.randrange(50,450), 15, 15)
         self.initW()
         self.setAutoFillBackground(True)
-        self.setToolTip(self.name)
+        self.setToolTip(self.name+" Words: " + str(self.value))
         self.show()
 
     def initW(self):
