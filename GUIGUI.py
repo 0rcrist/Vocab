@@ -10,7 +10,7 @@ class VocabGui(Qw.QWidget):
         super().__init__()
         #self.title = 'Vocab'
         self.dic= dic
-        self.getMaxMin()
+        self.Max =self.getMaxMin()
         self.resize(1000, 500)
         self.setAutoFillBackground(True)
         self.initUI()
@@ -22,23 +22,15 @@ class VocabGui(Qw.QWidget):
         self.setPalette(p)
         for  key,value in self.dic.items():
             self.ob = Circles(self, key, value, self.Max)
-        label = Qw.QLabel(self)
-        label.setText(str(self.Max))
-        label.setGeometry(960,460,100,50)
-        label2 = Qw.QLabel(self)
-        label2.setText(str(int(self.Max/2)))
-        label2.setGeometry(480,460,100,50)
-        label3= Qw.QLabel(self)
-        label3.setText('0')
-        label3.setGeometry(5,460,100,50)
         self.show()
 
 
     def getMaxMin(self):
-        self.Max = max([x for x in self.dic.values()])
-        if self.Max >= 10000:
-            self.Max += 5000
-        else: self.Max+=500
+        Max = max([x for x in self.dic.values()])
+        if Max >= 10000:
+            Max += 5000
+        else: Max+=500
+        return Max
 
     def addAuthor(self, name, num):
         self.dic[name] = num
