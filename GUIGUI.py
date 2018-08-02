@@ -17,7 +17,7 @@ class VocabGui(Qw.QWidget):
     def initUI(self):
         #self.setWindowTitle(self.title)
         p = self.palette()
-        p.setColor(self.backgroundRole(), Qc.Qt.black)
+        p.setColor(self.backgroundRole(), Qc.Qt.white)
         self.setPalette(p)
         for  key,value in self.dic.items():
             self.ob = Circles(self, key, value, self.Max)
