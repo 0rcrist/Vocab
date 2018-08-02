@@ -12,6 +12,7 @@ class VocabGui(Qw.QWidget):
         self.dic= dic
         self.getMaxMin()
         self.resize(1000, 500)
+        self.setAutoFillBackground(True)
         self.initUI()
 
     def initUI(self):
@@ -21,7 +22,17 @@ class VocabGui(Qw.QWidget):
         self.setPalette(p)
         for  key,value in self.dic.items():
             self.ob = Circles(self, key, value, self.Max)
+        label = Qw.QLabel(self)
+        label.setText(str(self.Max))
+        label.setGeometry(960,460,100,50)
+        label2 = Qw.QLabel(self)
+        label2.setText(str(int(self.Max/2)))
+        label2.setGeometry(480,460,100,50)
+        label3= Qw.QLabel(self)
+        label3.setText('0')
+        label3.setGeometry(5,460,100,50)
         self.show()
+
 
     def getMaxMin(self):
         self.Max = max([x for x in self.dic.values()])
@@ -41,14 +52,13 @@ class Circles(Qw.QWidget):
         self.setGeometry((self.value/max)*1000, rd.randrange(50,450), 15, 15)
         self.initW()
         self.setAutoFillBackground(True)
-        self.setToolTip(self.name)
-        self.show()
+        self.setToolTip(self.name+"\nWords: " + str(self.value))
+        #self.show()
 
     def initW(self):
         p = self.palette()
         p.setColor(self.backgroundRole(), Qc.Qt.red)
         self.setPalette(p)
-
 
 
 if __name__ == '__main__':
